@@ -1,69 +1,77 @@
 <!DOCTYPE html>
-<html lang="id">
-
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+  font-family: Arial;
+  padding:20px;
+}
 
-<title>Nota Berjalan</title>
+input, select, button{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  font-size:16px;
+}
 
-<link rel="stylesheet" href="style.css">
-
+button{
+  background:#222;
+  color:white;
+  border:none;
+  border-radius:5px;
+}
+</style>
 </head>
-
 
 <body>
 
-
-<div class="container">
-
 <h2>Nota Berjalan</h2>
 
-
-<label>Pilih Toko</label>
-
+<label>Toko</label>
 <select id="toko">
-<option value="Hanifa">Hanifa</option>
-<option value="Meli">Meli</option>
-<option value="Leora">Leora</option>
+<option>Hanifa</option>
+<option>Meli</option>
+<option>Leora</option>
 </select>
 
 
-
 <label>Ambil Barang</label>
-
-<input 
-type="number" 
-id="ambil" 
-placeholder="Masukkan nominal">
-
+<input id="ambil" type="number" placeholder="Nominal">
 
 
 <label>Setoran</label>
-
-<input 
-type="number" 
-id="setoran" 
-placeholder="Masukkan nominal">
+<input id="setoran" type="number" placeholder="Nominal">
 
 
-
-<button onclick="simpan()">
-SIMPAN
-</button>
+<button onclick="simpan()">SIMPAN</button>
 
 
 <p id="hasil"></p>
 
 
-</div>
+<script>
+
+function simpan(){
+
+let data = {
+ toko: document.getElementById("toko").value,
+ ambil: document.getElementById("ambil").value,
+ setoran: document.getElementById("setoran").value
+};
 
 
+google.script.run
+.withSuccessHandler(function(res){
+ document.getElementById("hasil").innerHTML=res;
 
-<script src="config.js"></script>
-<script src="script.js"></script>
+ document.getElementById("ambil").value="";
+ document.getElementById("setoran").value="";
+})
+.simpanData(data);
 
+}
+
+</script>
 
 </body>
-
 </html>
