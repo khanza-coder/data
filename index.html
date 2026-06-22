@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+font-family:Arial;
+padding:20px;
+}
+
+
+input,select,button{
+
+width:100%;
+padding:12px;
+margin:8px 0;
+font-size:16px;
+
+}
+
+
+button{
+
+background:#222;
+color:white;
+border:none;
+border-radius:5px;
+
+}
+
+
+.box{
+
+border:1px solid #ddd;
+padding:15px;
+border-radius:10px;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="box">
+
+
+<h2>Nota Berjalan</h2>
+
+
+
+<label>Pilih Toko</label>
+
+<select id="toko">
+
+</select>
+
+
+
+<h3>Tambah Toko Baru</h3>
+
+
+<input id="tokoBaru" placeholder="Nama toko">
+
+
+<button onclick="tambahToko()">
+Tambah Toko
+</button>
+
+
+
+<hr>
+
+
+
+<label>Ambil Barang</label>
+
+<input id="ambil" type="number" placeholder="0">
+
+
+
+<label>Setoran</label>
+
+<input id="setoran" type="number" placeholder="0">
+
+
+
+<button onclick="simpan()">
+SIMPAN
+</button>
+
+
+
+<p id="hasil"></p>
+
+
+</div>
+
+
+
+<script>
+
+
+// tampilkan toko
+
+function loadToko(){
+
+
+google.script.run
+
+.withSuccessHandler(function(data){
+
+
+let pilih=document.getElementById("toko");
+
+
+pilih.innerHTML="";
+
+
+data.forEach(function(nama){
+
+
+let option=document.createElement("option");
+
+option.text=nama;
+
+option.value=nama;
+
+
+pilih.add(option);
+
+
+});
+
+
+})
+
+.getToko();
+
+
+}
+
+
+
+loadToko();
+
+
+
+
+// tambah toko
+
+function tambahToko(){
+
+
+let nama=document.getElementById("tokoBaru").value;
+
+
+
+google.script.run
+
+.withSuccessHandler(function(res){
+
+
+alert(res);
+
+
+document.getElementById("tokoBaru").value="";
+
+
+loadToko();
+
+
+})
+
+.tambahToko(nama);
+
+
+
+}
+
+
+
+// simpan transaksi
+
+function simpan(){
+
+
+let data={
+
+
+toko:
+document.getElementById("toko").value,
+
+
+ambil:
+document.getElementById("ambil").value,
+
+
+setoran:
+document.getElementById("setoran").value
+
+
+};
+
+
+
+google.script.run
+
+.withSuccessHandler(function(res){
+
+
+document.getElementById("hasil").innerHTML=res;
+
+
+document.getElementById("ambil").value="";
+
+document.getElementById("setoran").value="";
+
+
+})
+
+
+.simpanData(data);
+
+
+
+}
+
+
+
+</script>
+
+
+</body>
+
+</html>
